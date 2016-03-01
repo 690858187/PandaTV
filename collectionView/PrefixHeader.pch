@@ -1,0 +1,25 @@
+//
+//  PrefixHeader.pch
+//  collectionView
+//
+//  Created by 1234 on 15/12/4.
+//  Copyright © 2015年 XDBB. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "Masonry.h"
+#import <YYKit.h>
+#import "MJRefresh.h"
+#import <AFNetworking.h>
+#import "PandaKit.h"
+#import "MJExtension.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "Header.h"
+#import "Common.h"
+#import "BaseViewController.h"
+#endif /* PrefixHeader_pch */
