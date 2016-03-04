@@ -10,6 +10,6 @@
 
 @interface AVPlayControlView : UIView
 @property (nonatomic, copy) NSString *shareURLStr;
-@property (nonatomic, copy) void (^changeStatusBlock)();
+@property (nonatomic, copy) void (^changeStatusBlock)(BOOL isLarge);
 - (id)initWithFrame:(CGRect)frame ;
 @end

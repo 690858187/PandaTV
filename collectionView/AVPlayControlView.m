@@ -14,9 +14,8 @@
 {
     BOOL btnStatus;         //按钮状态 YES：默认显示3秒后消失
     BOOL animationFinish;    //记录按钮动画是否完成
+    BOOL isControlLarge;
 }
-/** 透明背景*/
-@property (nonatomic, strong) UIView *clearView;
 /** 返回*/
 @property (nonatomic, strong) UIButton *backButton;
 /** 分享*/
@@ -26,12 +25,10 @@
 /** 播放器状态*/
 @property (nonatomic, strong) UIButton *playViewStatusButton;
 
-
 @end
 
 
 @implementation AVPlayControlView
-
 
 - (id)initWithFrame:(CGRect)frame {
     
@@ -40,6 +37,7 @@
         self.backgroundColor =[UIColor clearColor];
         btnStatus = YES;
         animationFinish = NO;
+        isControlLarge = NO;
         [self setupView];
         [self layoutUI];
         [self starAnimation];
@@ -48,16 +46,11 @@
 }
 
 - (void)setupView {
-    
-    
-    self.clearView = [UIView new];
-    self.clearView.backgroundColor = [UIColor clearColor];
-    self.clearView.userInteractionEnabled = YES;
-    [self addSubview:self.clearView];
-    
+
+    self.backgroundColor = [UIColor clearColor];
+    self.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clearViewTapAction:)];
-    [self.clearView addGestureRecognizer:tap];
-    
+    [self addGestureRecognizer:tap];
     
     NSArray *btnNormalGroupArr = [NSArray arrayWithObjects:@"btn_return_normal",@"btn_share_normal",@"",@"btn_full_screen_normal", nil];
     NSArray *btnHoverGroupArr = [NSArray arrayWithObjects:@"btn_return_hover",@"btn_share_hover",@"",@"btn_full_screen_hover", nil];
@@ -66,7 +59,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setBackgroundImage:[UIImage imageNamed:btnNormalGroupArr[i]] forState:UIControlStateNormal];
         [button setBackgroundImage:[UIImage imageNamed:btnHoverGroupArr[i]] forState:UIControlStateHighlighted];
-        [self.clearView addSubview:button];
+        [self addSubview:button];
         
         switch (i) {
             case 0:
@@ -89,20 +82,12 @@
             default:
                 break;
         }
-        
     }
-    
-
 }
 
 - (void)layoutUI {
     
-    
     CGFloat spaching = 15.0f;
-    
-    [self.clearView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self);
-    }];
     
     [self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(@35);
@@ -127,9 +112,6 @@
         make.bottom.equalTo(self).offset(-spaching);
         make.right.equalTo(self.shareButton);
     }];
-    
-    
-
 }
 
 
@@ -154,7 +136,8 @@
 - (void)changeStatus:(UIButton *)sender {
     
     if (self.changeStatusBlock) {
-        self.changeStatusBlock();
+        isControlLarge = !isControlLarge;
+        self.changeStatusBlock(isControlLarge);
     }
 }
 
@@ -165,9 +148,7 @@
 - (void)starAnimation {
     
     [self performSelector:@selector(clearViewTapAction:) withObject:nil afterDelay:STAY_BTN_STATUS_TIME];
-
 }
-
 
 /**
  *  背景图点击效果
@@ -177,6 +158,9 @@
 
 - (void)clearViewTapAction:(UITapGestureRecognizer *)tap {
     
+    if (isControlLarge) {
+        return;
+    }
     if (tap) {
         self.backButton.hidden = !self.backButton.hidden;
         self.shareButton.hidden = !self.shareButton.hidden ;
@@ -214,15 +198,5 @@
     }
     return nil;
 }
-
-
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

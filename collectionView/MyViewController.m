@@ -65,9 +65,11 @@ static NSString *const MyTableViewCellReuseIdentifier = @"MyTableViewCellReuseId
 #pragma mark----tableHeaderView
 - (UIView *)creatTableHeaderView {
     
-    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 200)];
+    UIImageView *headView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 200)];
     headView.backgroundColor = kBackColor_tone;
-   
+    headView.image = [UIImage imageNamed:@"account_bg"];
+    headView.userInteractionEnabled = YES;
+    
     UIImageView *img = [[UIImageView alloc] init];
     img.image = [UIImage imageNamed:@"head_img_normal"];
     img.layer.cornerRadius = 60/2;

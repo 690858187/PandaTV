@@ -7,7 +7,7 @@
 #import "AVPlayView.h"      //播放页面
 #define URL @"http://v.jxvdy.com/sendfile/w5bgP3A8JgiQQo5l0hvoNGE2H16WbN09X-ONHPq3P3C1BISgf7C-qVs6_c8oaw3zKScO78I--b0BGFBRxlpw13sf2e54QA"
 
-#define PlayView_Height   screen_width*0.65 //播放页面高度
+#define PlayView_Height  screen_width*9/16 //播放页面高度
 #define SelectView_Height 40                //选择控制器高度
 #define ScrollView_Height screen_height-PlayView_Height-SelectView_Height-20 //主scrollView高度
 #define InputView_Height  50                //输入框高度
@@ -17,14 +17,14 @@ static NSString *const  kLiveDetailTableViewCellReuseIdentifier = @"kLiveDetailT
 static NSString *const  kLiveTextDetailTableViewCellReuseIdentifier = @"kLiveTextDetailTableViewCellReuseIdentifier";
 @interface LiveRoomViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
-@property (nonatomic,strong)AVPlayView *playView;
+@property (nonatomic,strong)AVPlayView *avPlayView;
 @property (nonatomic,strong)CommonSelectView *selectView;
 @property (nonatomic,strong)UIScrollView *mainScrollView;
 @property (nonatomic,strong)UITableView *liverDetailTableView;
 @property (nonatomic,strong)UITableView *chatTableView;
 @property (nonatomic,strong)LiveRoomData *roomData;
 @property (nonatomic,strong)ChatInputView *inputView;
-@property (nonatomic,assign)UIInterfaceOrientation status;
+@property (nonatomic,assign)UIInterfaceOrientation orientation;
 - (void)addChatAction;
 @end
 @implementation LiveRoomViewController
@@ -32,8 +32,8 @@ static NSString *const  kLiveTextDetailTableViewCellReuseIdentifier = @"kLiveTex
 #pragma mark----addObserver
 
 - (void)addObserver {
-     //监听屏幕旋转状态
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChangeNotification) name:UIDeviceOrientationDidChangeNotification object:nil];
+   
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(screenOrientationNotification) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 - (void)dealloc {
@@ -45,7 +45,8 @@ static NSString *const  kLiveTextDetailTableViewCellReuseIdentifier = @"kLiveTex
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.status = UIInterfaceOrientationPortrait;
+    //默认为不知道
+    self.orientation = UIInterfaceOrientationUnknown;
     [self setupView];
     [self layoutUI];
     [self addObserver];
@@ -53,16 +54,12 @@ static NSString *const  kLiveTextDetailTableViewCellReuseIdentifier = @"kLiveTex
 }
 - (void)setupView {
     
-    self.playView = [AVPlayView new];
-    self.playView.backgroundColor = kColor(100, 100, 100, 1);
-    [self.view addSubview:self.playView];
-    [self.playView play];
     
     self.selectView = [[CommonSelectView alloc] initWithFrame:CGRectZero TitleGroupArr:@[@"聊天",@"主播详情"]];
-    __weak LiveRoomViewController *weakSelf = self;
+    __weak LiveRoomViewController *weakSelfs = self;
     self.selectView.selectTypeBlcok = ^(NSInteger selectType){
-        [weakSelf.view endEditing:YES];
-        [weakSelf.mainScrollView setContentOffset:CGPointMake(screen_width*selectType, 0) animated:NO];
+        [weakSelfs.view endEditing:YES];
+        [weakSelfs.mainScrollView setContentOffset:CGPointMake(screen_width*selectType, 0) animated:NO];
     };
     [self.view addSubview:self.selectView];
     
@@ -111,37 +108,53 @@ static NSString *const  kLiveTextDetailTableViewCellReuseIdentifier = @"kLiveTex
     self.inputView.addChatBlock = ^(){
     };
     [self.mainScrollView addSubview:self.inputView];
+    
+    
+    self.avPlayView = [[AVPlayView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width*9/16)];
+    self.avPlayView.backgroundColor = [UIColor redColor];
+    [self.view addSubview:self.avPlayView];
+    //视频开始播放
+    [self.avPlayView play];
+    __weak LiveRoomViewController *weakSelf = self;
+    self.avPlayView.transform = CGAffineTransformIdentity;
+    self.avPlayView.changeStateBlock = ^(BOOL isLarge){
+        
+        if (isLarge) { //点击全屏化之后才支持屏幕检测，否者不支持
+            [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+            [UIView animateWithDuration:0.5 animations:^{
+                weakSelf.avPlayView.transform = CGAffineTransformMakeRotation(M_PI_2);
+            }];
+            weakSelf.avPlayView.frame = CGRectMake(0, 0, weakSelf.view.frame.size.width, weakSelf.view.frame.size.height);
+            weakSelf.mainScrollView.hidden = YES;
+            weakSelf.selectView.hidden = YES;
+            //此时屏幕的旋转方向是向左
+            weakSelf.orientation = UIDeviceOrientationLandscapeLeft;
+        }
+        else {
+            [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                weakSelf.avPlayView.transform = CGAffineTransformMakeRotation(0);
+            }];
+            
+            weakSelf.avPlayView.frame = CGRectMake(0, 0, weakSelf.view.frame.size.width, weakSelf.view.frame.size.width*9/16);
+            weakSelf.mainScrollView.hidden = NO;
+            weakSelf.selectView.hidden = NO;
+            weakSelf.orientation = UIInterfaceOrientationUnknown;
+        }
+    };
+
 
 }
 
 - (void)layoutUI {
     
-    if (self.status == UIInterfaceOrientationPortrait) {
+    [self.selectView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        [self.playView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view);
-            make.top.equalTo(self.view).offset(20);
-            make.height.equalTo(@(PlayView_Height));
-        }];
-        
-        [self.selectView mas_makeConstraints:^(MASConstraintMaker *make) {
-            
-            make.left.right.equalTo(self.view);
-            make.height.equalTo(@(SelectView_Height));
-            make.top.equalTo(self.playView.mas_bottom);
-        }];
-    }
-    else {
-        
-        [self.playView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.bottom.equalTo(self.view);
-            make.top.equalTo(self.view).offset(20);
-        }];
-        
-    }
-    
-   
-
+        make.left.right.equalTo(self.view);
+        make.height.equalTo(@(SelectView_Height));
+        make.top.equalTo(self.avPlayView.mas_bottom);
+    }];
 }
 
 #pragma mark-----UITableViewDataSource,UITableViewDelegate
@@ -221,7 +234,7 @@ static NSString *const  kLiveTextDetailTableViewCellReuseIdentifier = @"kLiveTex
         
         if (!error) {
             self.roomData = result;
-            self.playView.shareURLStr = result.info.roominfo.id;
+            //self.avPlayView.shareURLStr = result.info.roominfo.id;
             [self.liverDetailTableView reloadData];
         }else {
             
@@ -235,102 +248,44 @@ static NSString *const  kLiveTextDetailTableViewCellReuseIdentifier = @"kLiveTex
     
 }
 
-/**
- *  监听屏幕旋转状态改变
- *
- *  @param notification notification
- */
+#pragma mark-----页面旋转
 
-- (void)deviceOrientationDidChangeNotification {
-    
-    UIInterfaceOrientation status=[UIApplication sharedApplication].statusBarOrientation;
-    [self preferredInterfaceOrientationForPresentation];
-    self.status = status;
-    [self layoutUI];
-    switch (status) {
-        case UIInterfaceOrientationUnknown:             //未知
-            
-            break;
-        case UIInterfaceOrientationPortrait:            //正常
-            
-            break;
-
-        case UIInterfaceOrientationPortraitUpsideDown:  //上下颠倒
-            
-            break;
-
-        case UIInterfaceOrientationLandscapeLeft:       //左
-            
-            break;
-
-        case UIInterfaceOrientationLandscapeRight:      //右
-            
-            break;
-
-            
-        default:
-            break;
+- (void)screenOrientationNotification {
+    NSLog(@"UIDevice:(orientation)%ld",(long)[UIDevice currentDevice].orientation);
+    NSLog(@"UIDeviceOrientationUnknown:%ld",(long)UIDeviceOrientationUnknown);
+    NSLog(@"UIDeviceOrientationPortrait:%ld",(long)UIDeviceOrientationPortrait);
+    NSLog(@"UIDeviceOrientationPortraitUpsideDown:%ld",(long)UIDeviceOrientationPortraitUpsideDown);
+    NSLog(@"UIDeviceOrientationLandscapeLeft:%ld",(long)UIDeviceOrientationLandscapeLeft);
+    NSLog(@"UIDeviceOrientationLandscapeRight:%ld",(long)UIDeviceOrientationLandscapeRight);
+    NSLog(@"UIDeviceOrientationFaceUp:%ld",(long)UIDeviceOrientationFaceUp);
+    NSLog(@"UIDeviceOrientationFaceDown:%ld",(long)UIDeviceOrientationFaceDown);
+    if ([UIDevice currentDevice].orientation== UIDeviceOrientationLandscapeRight&&self.orientation==UIDeviceOrientationLandscapeLeft) {
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            self.avPlayView.transform = CGAffineTransformMakeRotation(-M_PI_2);
+        }];
+        self.avPlayView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+        self.orientation = UIDeviceOrientationLandscapeRight;
     }
-    
+    else if ([UIDevice currentDevice].orientation== UIDeviceOrientationLandscapeLeft&&self.orientation==UIDeviceOrientationLandscapeRight)
+    {
+        [UIView animateWithDuration:0.5 animations:^{
+            self.avPlayView.transform = CGAffineTransformMakeRotation(M_PI_2);
+        }];
+        self.avPlayView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+        self.orientation = UIDeviceOrientationLandscapeLeft;
+    }
 }
 
-
-#pragma mark-----SuperMethod(重写)
-
-- (BOOL)shouldAutorotate
-{
+//支持旋转
+-(BOOL)shouldAutorotate{
     return YES;
 }
-
-- (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskAll;
+//支持的方向
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
--(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
-    //判断屏幕旋转状态
-    UIInterfaceOrientation status=[UIApplication sharedApplication].statusBarOrientation;
-    switch (status) {
-        case UIInterfaceOrientationUnknown:             //未知
-        {
-            
-        }
-            break;
-        case UIInterfaceOrientationPortrait:            //正常
-        {
-            
-        }
-            break;
-            
-        case UIInterfaceOrientationPortraitUpsideDown:  //上下颠倒
-        {
-            
-        }
-            break;
-            
-        case UIInterfaceOrientationLandscapeLeft:       //左
-        {
-            return status;
-        }
-            break;
-            
-        case UIInterfaceOrientationLandscapeRight:      //右
-        {
-             return status;
-        }
-            break;
-            
-            
-        default:
-            break;
-    }
-    return UIInterfaceOrientationPortrait;
-    
-}
 
-//-(NSUInteger )supportedInterfaceOrientations
-//{
-//    return UIInterfaceOrientationMaskLandscapeRight;
-//}
 
 @end

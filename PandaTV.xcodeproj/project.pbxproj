@@ -14,6 +14,7 @@
 		E31451441C2CEAAC004A19F4 /* NSString+MD5HexDigest.m in Sources */ = {isa = PBXBuildFile; fileRef = E31451431C2CEAAC004A19F4 /* NSString+MD5HexDigest.m */; };
 		E31981B81C4CCFE800174ED4 /* libUMessage_Sdk_1.2.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E31981B61C4CCFE800174ED4 /* libUMessage_Sdk_1.2.3.a */; };
 		E31981BB1C4CE7E400174ED4 /* AVPlayControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = E31981BA1C4CE7E400174ED4 /* AVPlayControlView.m */; };
+		E31BBA2D1C88282100446FBD /* AVPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = E31BBA2C1C88282100446FBD /* AVPlayView.m */; };
 		E31C6A8E1C196DAD005F891B /* LoginTextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = E31C6A8D1C196DAD005F891B /* LoginTextFieldView.m */; };
 		E31C6A911C1971A6005F891B /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = E31C6A901C1971A6005F891B /* Common.m */; };
 		E34962D71C1166F9005B6F25 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E34962D61C1166F9005B6F25 /* main.m */; };
@@ -63,9 +64,7 @@
 		E39411581C2A9B950010C301 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E3BBF5951C2A7B2B004249E7 /* libsqlite3.0.tbd */; };
 		E39411591C2A9BA10010C301 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E3BBF59E1C2A7D8E004249E7 /* libc++.tbd */; };
 		E394115A1C2A9D8A0010C301 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3AFBF3C1C291D9D0030DCD4 /* AVFoundation.framework */; };
-		E3AFBF3B1C28F76B0030DCD4 /* AVPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = E3AFBF3A1C28F76B0030DCD4 /* AVPlayView.m */; };
 		E3AFBF3D1C291D9D0030DCD4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3AFBF3C1C291D9D0030DCD4 /* AVFoundation.framework */; };
-		E3AFBF401C29358F0030DCD4 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E3AFBF3F1C29358F0030DCD4 /* PlayerView.m */; };
 		E3BB19BB1C1EC37200E0C433 /* CommonLoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BB19BA1C1EC37200E0C433 /* CommonLoadView.m */; };
 		E3BC18691C1E650B00760258 /* LiveRoomHttps.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BC18681C1E650B00760258 /* LiveRoomHttps.m */; };
 		E3BC186C1C1E651C00760258 /* LiveRoomDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = E3BC186B1C1E651C00760258 /* LiveRoomDatas.m */; };
@@ -82,6 +81,8 @@
 		E3E842A21C1BDF2E00156E74 /* JZYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E842A01C1BDF2E00156E74 /* JZYModel.m */; };
 		E3E842A51C1BDFF100156E74 /* SearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E842A41C1BDFF100156E74 /* SearchTableViewCell.m */; };
 		E3E842A81C1BEDFE00156E74 /* SearchHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E3E842A71C1BEDFE00156E74 /* SearchHistoryModel.m */; };
+		E3FE4D5C1C85715100C18BC1 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3FE4D5B1C85715100C18BC1 /* AVKit.framework */; };
+		E3FE4D5D1C85715800C18BC1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3AFBF3C1C291D9D0030DCD4 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +117,8 @@
 		E31981B71C4CCFE800174ED4 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		E31981B91C4CE7E400174ED4 /* AVPlayControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVPlayControlView.h; sourceTree = "<group>"; };
 		E31981BA1C4CE7E400174ED4 /* AVPlayControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVPlayControlView.m; sourceTree = "<group>"; };
+		E31BBA2B1C88282100446FBD /* AVPlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVPlayView.h; sourceTree = "<group>"; };
+		E31BBA2C1C88282100446FBD /* AVPlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVPlayView.m; sourceTree = "<group>"; };
 		E31C6A8C1C196DAD005F891B /* LoginTextFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTextFieldView.h; sourceTree = "<group>"; };
 		E31C6A8D1C196DAD005F891B /* LoginTextFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTextFieldView.m; sourceTree = "<group>"; };
 		E31C6A8F1C1971A6005F891B /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Common.h; path = ../Common.h; sourceTree = "<group>"; };
@@ -211,11 +214,7 @@
 		E39411511C2A9A550010C301 /* libc++abi.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++abi.tbd"; path = "usr/lib/libc++abi.tbd"; sourceTree = SDKROOT; };
 		E39411541C2A9A790010C301 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
 		E394116E1C2AA1480010C301 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		E3AFBF391C28F76B0030DCD4 /* AVPlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVPlayView.h; sourceTree = "<group>"; };
-		E3AFBF3A1C28F76B0030DCD4 /* AVPlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVPlayView.m; sourceTree = "<group>"; };
 		E3AFBF3C1C291D9D0030DCD4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		E3AFBF3E1C29358F0030DCD4 /* PlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerView.h; sourceTree = "<group>"; };
-		E3AFBF3F1C29358F0030DCD4 /* PlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerView.m; sourceTree = "<group>"; };
 		E3BB19B91C1EC37200E0C433 /* CommonLoadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonLoadView.h; sourceTree = "<group>"; };
 		E3BB19BA1C1EC37200E0C433 /* CommonLoadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonLoadView.m; sourceTree = "<group>"; };
 		E3BBF5951C2A7B2B004249E7 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -261,6 +260,7 @@
 		E3E842A41C1BDFF100156E74 /* SearchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableViewCell.m; sourceTree = "<group>"; };
 		E3E842A61C1BEDFE00156E74 /* SearchHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchHistoryModel.h; sourceTree = "<group>"; };
 		E3E842A71C1BEDFE00156E74 /* SearchHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHistoryModel.m; sourceTree = "<group>"; };
+		E3FE4D5B1C85715100C18BC1 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		F2BCC4AB3F9D2AA0CAB5FD76 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -269,6 +269,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3FE4D5D1C85715800C18BC1 /* AVFoundation.framework in Frameworks */,
+				E3FE4D5C1C85715100C18BC1 /* AVKit.framework in Frameworks */,
 				6A10EC3ED1EB3141C06547AD /* libPods.a in Frameworks */,
 				E31981B81C4CCFE800174ED4 /* libUMessage_Sdk_1.2.3.a in Frameworks */,
 			);
@@ -597,12 +599,10 @@
 				E392FF751C1F27B10095180B /* ChatInputView.m */,
 				E392FF761C1F27B10095180B /* LiveRoomViewController.h */,
 				E392FF771C1F27B10095180B /* LiveRoomViewController.m */,
-				E3AFBF391C28F76B0030DCD4 /* AVPlayView.h */,
-				E3AFBF3A1C28F76B0030DCD4 /* AVPlayView.m */,
+				E31BBA2B1C88282100446FBD /* AVPlayView.h */,
+				E31BBA2C1C88282100446FBD /* AVPlayView.m */,
 				E31981B91C4CE7E400174ED4 /* AVPlayControlView.h */,
 				E31981BA1C4CE7E400174ED4 /* AVPlayControlView.m */,
-				E3AFBF3E1C29358F0030DCD4 /* PlayerView.h */,
-				E3AFBF3F1C29358F0030DCD4 /* PlayerView.m */,
 			);
 			name = LiveRoom;
 			sourceTree = "<group>";
@@ -807,6 +807,7 @@
 		E9BE3DF5CFA218946F8B568D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E3FE4D5B1C85715100C18BC1 /* AVKit.framework */,
 				E394116E1C2AA1480010C301 /* CoreTelephony.framework */,
 				E39411541C2A9A790010C301 /* libc++.1.tbd */,
 				E39411511C2A9A550010C301 /* libc++abi.tbd */,
@@ -996,7 +997,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E35928A81C1585A5003B1F91 /* LiveViewController.m in Sources */,
-				E3AFBF3B1C28F76B0030DCD4 /* AVPlayView.m in Sources */,
 				E35928B91C158AF0003B1F91 /* SubcateData.m in Sources */,
 				E34962DD1C1166F9005B6F25 /* HomeViewController.m in Sources */,
 				E35928D71C16BFED003B1F91 /* AboutOurViewController.m in Sources */,
@@ -1021,6 +1021,7 @@
 				E3DCCD691C2BD74B00C3636C /* ReplyDatas.m in Sources */,
 				E3C554971C258D99008626A9 /* LiveTextDetailTableViewCell.m in Sources */,
 				E392FF781C1F27B10095180B /* HostDetailTableViewCell.m in Sources */,
+				E31BBA2D1C88282100446FBD /* AVPlayView.m in Sources */,
 				E35928921C15396E003B1F91 /* HomeData.m in Sources */,
 				E368A3F71C17E771005FFA80 /* BaseSearchNavigationBar.m in Sources */,
 				E3BC186C1C1E651C00760258 /* LiveRoomDatas.m in Sources */,
@@ -1046,7 +1047,6 @@
 				E34962D71C1166F9005B6F25 /* main.m in Sources */,
 				E349630F1C11921C005B6F25 /* PandaBaseNetManager.m in Sources */,
 				E35928851C152C4D003B1F91 /* NSObject+Private.m in Sources */,
-				E3AFBF401C29358F0030DCD4 /* PlayerView.m in Sources */,
 				E3DCCD661C2BD73A00C3636C /* ReplyHttps.m in Sources */,
 				E3DCCD5F1C2BC77900C3636C /* ReplyViewController.m in Sources */,
 				E35928BC1C158EFF003B1F91 /* SubcateViewController.m in Sources */,

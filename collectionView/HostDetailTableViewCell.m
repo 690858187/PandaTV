@@ -31,6 +31,7 @@
     }
     return self;
 }
+
 - (void)setupView {
    
     self.photoImgView = [UIImageView new];

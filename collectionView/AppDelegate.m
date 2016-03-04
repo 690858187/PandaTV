@@ -151,6 +151,11 @@
 {
     [UMessage registerDeviceToken:deviceToken];
     
+    
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"DeviceToken:%@",deviceToken] delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+    NSLog(@"%@",deviceToken);
+    [alert show];
+    
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error

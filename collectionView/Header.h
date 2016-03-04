@@ -24,6 +24,9 @@
 //友盟appkey
 #define UMAppKey @"567a3e03e0f55a3963003f25"
 #define APPPushKey @"567a3e03e0f55a3963003f25"
-
+//测试视频
+#define AVHttp_1 @"http://admin.weixin.ihk.cn/ihkwx_upload/test.mp4"
+#define AVHttp_2 @"http://devimages.apple.com/iphone/samples/bipbop/gear1/prog_index.m3u8"
+#define AVHttp_3 @"http://player.56.com/v_NjUwNDUwODI.swf"
 
 #endif /* Header_h */

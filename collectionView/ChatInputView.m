@@ -108,4 +108,5 @@
         self.frame = inputFieldRect;
     }];
 }
+
 @end

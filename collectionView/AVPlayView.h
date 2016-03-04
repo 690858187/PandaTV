@@ -1,35 +1,24 @@
 //
 //  AVPlayView.h
-//  shipin
+//  播放
 //
-//  Created by 1234 on 15/12/22.
-//  Copyright © 2015年 XDBB. All rights reserved.
+//  Created by 1234 on 16/3/3.
+//  Copyright © 2016年 XDBB. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "PlayerView.h"
-typedef NS_ENUM(NSInteger, AVPlayViewShowStatus) {
-    AVPlayViewShowStatusNormal = 0,          // 默认竖屏
-    AVPlayViewShowStatusFull         // 满屏
-};
+#import <AVKit/AVKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface AVPlayView : UIView
-/** 页面展示状态：默认：AVPlayViewShowStatusNormal*/
-@property (nonatomic, assign) AVPlayViewShowStatus *showStatus;
-/** 视频串流地址*/
-@property (nonatomic, copy) NSString * URLStr;
-
-@property (nonatomic, strong) AVPlayerItem *playerItem;
-/** 分享网址*/
-@property (nonatomic, copy) NSString *shareURLStr;
-
-- (id)initWithFrame:(CGRect)frame
-             URLStr:(NSString *)URLStr
-     ViewController:(UIViewController *)viewController;
-
+/** 改变屏幕大小状态block :(isLarge:确定当前屏幕所处状态)*/
+@property (nonatomic, copy) void (^changeStateBlock)(BOOL isLarge);
 /**
- *  播放视频
+ *  视频开始播放
  */
 - (void)play;
-
+/**
+ *  视频停止播放
+ */
+- (void)pause;
 @end

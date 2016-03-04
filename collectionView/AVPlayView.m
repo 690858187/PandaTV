@@ -1,134 +1,113 @@
 //
 //  AVPlayView.m
-//  shipin
+//  播放
 //
-//  Created by 1234 on 15/12/22.
-//  Copyright © 2015年 XDBB. All rights reserved.
+//  Created by 1234 on 16/3/3.
+//  Copyright © 2016年 XDBB. All rights reserved.
 //
-
 #import "AVPlayView.h"
 #import "AVPlayControlView.h"
-@interface AVPlayView ()
 
-@property (nonatomic, strong) AVPlayControlView *playControlView;
-
-@property (nonatomic, strong) AVPlayerLayer *playerLayer;
+@interface AVPlayView ()<AVPlayerViewControllerDelegate>
+{   //当前视频所处状态，默认为非全屏
+    BOOL isLarge;
+}
 
 @property (nonatomic, strong) AVPlayer *player;
+/** */
+@property (nonatomic, strong) AVPlayerViewController *playViewVC;
 
-@property (nonatomic, strong) PlayerView *playerView;
-/** 控制器*/
-@property (nonatomic, strong) UIViewController *superViewController;
+@property (nonatomic, strong) AVPlayControlView *playControlView;
+/** 视频所处视图的固定宽度*/
+@property (nonatomic, assign) CGFloat width;
+/** 视频所处视图的固定高度*/
+@property (nonatomic, assign) CGFloat height;
 
 @end
 
 @implementation AVPlayView
-- (id)initWithFrame:(CGRect)frame
-{
+
+#pragma mark-----life cycle
+
+- (id)initWithFrame:(CGRect)frame {
+    
     if (self = [super initWithFrame:frame]) {
         
         [self setupView];
         [self layoutUI];
-        [self addObserver];
-        _showStatus = AVPlayViewShowStatusNormal;
+        isLarge = NO;
     }
     return self;
 }
 
 - (void)setupView {
     
-    self.playerView = [PlayerView new];
-    self.playerItem = [AVPlayerItem  playerItemWithURL:[NSURL URLWithString:@"http://v.jxvdy.com/sendfile/w5bgP3A8JgiQQo5l0hvoNGE2H16WbN09X-ONHPq3P3C1BISgf7C-qVs6_c8oaw3zKScO78I--b0BGFBRxlpw13sf2e54QA"]];
-    self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
-    self.playerView.player = self.player;
-    [self addSubview:self.playerView];
-    [self play];
+    [self addSubview:self.playViewVC.view];
     
     self.playControlView = [AVPlayControlView new];
+    __weak AVPlayView *weakSelf = self;
+    self.playControlView.changeStatusBlock = ^(BOOL isControlLarge){
+        if (weakSelf.changeStateBlock) {
+            weakSelf.changeStateBlock(!isControlLarge);
+        }
+    };
     [self addSubview:self.playControlView];
-    
-    
-       
 }
-- (void)layoutUI {
 
-    [self.playerView mas_makeConstraints:^(MASConstraintMaker *make) {
+- (void)layoutUI {
+    [self.playControlView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
-    
-    [self.playControlView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.playerView);
-    }];
-    
 }
 
-#pragma mark-----addObserver
-- (void)addObserver
-{
-    [self.playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];// 监听status属性
-    [self.playerItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];// 监听loadedTimeRanges属性
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.playViewVC.view.frame = self.bounds;
 }
 
-#pragma mark----- KVO
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
+#pragma mark-----Private Method
+
+- (void)btnAction {
     
-    AVPlayerItem *playItem = (AVPlayerItem *)object;
-    
-    if ([keyPath isEqualToString:@"status"]) {
-        //正在读取播放状态
-        if (playItem.status == AVPlayerItemStatusReadyToPlay) {
-//            self.playButton.enabled = YES;
-            //获取视频播放总长度
-            CMTime duration = self.playerItem.duration;
-            //转换成秒
-            CGFloat totalSecond = duration.value / duration.timescale;
-//            //转换成播放时间
-//            _totalTime = [self convertTime:totalSecond];
-            
-            
-        }
-        //加载播放失败
-        else if (playItem.status == AVPlayerItemStatusFailed) {
-            
-        }
-        
-    } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
-//        NSTimeInterval timeInterval = [self availableDuration];// 计算缓冲进度
-//        NSLog(@"Time Interval:%f",timeInterval);
-        CMTime duration = playItem.duration;
-//        CGFloat totalDuration = CMTimeGetSeconds(duration);
-//        [self.videoProgress setProgress:timeInterval / totalDuration animated:YES];
+    isLarge = !isLarge;
+    if(isLarge){
+        self.playControlView.hidden = YES;
+    }else {
+        self.playControlView.hidden = NO;
     }
-    
-    
-    
+    if (self.changeStateBlock) {
+        self.changeStateBlock(isLarge);
+    }
 }
 
-
-#pragma mark------Common Method
-
-/**
- *  播放器播放
- */
+#pragma mark-----Public Method
 
 - (void)play {
-    
-    [self.playerView.player play];
+    [self.playViewVC.player play];
 }
 
-- (void)dealloc {
-    
-    [self.playerItem removeObserver:self forKeyPath:@"status" context:nil];
-    [self.playerItem removeObserver:self forKeyPath:@"loadedTimeRanges" context:nil];
+- (void)pause {
+    [self.playViewVC.player pause];
 }
 
 #pragma mark-----getting&&setting
 
 - (AVPlayer *)player {
     if (!_player) {
-        _player = [[AVPlayer alloc] init];
+        _player = [AVPlayer playerWithURL:[NSURL URLWithString:AVHttp_1]];
     }
     return _player;
 }
 
+- (AVPlayerViewController *)playViewVC {
+    if (!_playViewVC) {
+        _playViewVC = [[AVPlayerViewController alloc] init];
+        _playViewVC.player = self.player;
+        _playViewVC.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        _playViewVC.allowsPictureInPicturePlayback = NO;//是否允许画中画播放
+        _playViewVC.delegate = self;
+        _playViewVC.showsPlaybackControls = NO;
+    }
+    return _playViewVC;
+}
 @end
