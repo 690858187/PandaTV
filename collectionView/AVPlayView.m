@@ -35,10 +35,20 @@
         
         [self setupView];
         [self layoutUI];
+        [self addObserver];
         isLarge = NO;
     }
     return self;
 }
+
+#pragma mark-----添加通知
+
+- (void)addObserver {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeScreenFull) name:LIVE_FULL_SCREEN object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeScreenNoFull) name:LIVE_NO_FULL_SCREEN object:nil];
+};
+
 
 - (void)setupView {
     
@@ -67,19 +77,6 @@
 
 #pragma mark-----Private Method
 
-- (void)btnAction {
-    
-    isLarge = !isLarge;
-    if(isLarge){
-        self.playControlView.hidden = YES;
-    }else {
-        self.playControlView.hidden = NO;
-    }
-    if (self.changeStateBlock) {
-        self.changeStateBlock(isLarge);
-    }
-}
-
 #pragma mark-----Public Method
 
 - (void)play {
@@ -88,6 +85,17 @@
 
 - (void)pause {
     [self.playViewVC.player pause];
+}
+
+#pragma mark-----NotificationCenter
+
+- (void)changeScreenFull {
+    
+     self.playControlView.hidden = YES;
+}
+
+- (void)changeScreenNoFull {
+    self.playControlView.hidden = NO;
 }
 
 #pragma mark-----getting&&setting

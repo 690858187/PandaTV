@@ -29,4 +29,9 @@
 #define AVHttp_2 @"http://devimages.apple.com/iphone/samples/bipbop/gear1/prog_index.m3u8"
 #define AVHttp_3 @"http://player.56.com/v_NjUwNDUwODI.swf"
 
+//视频全屏
+#define LIVE_FULL_SCREEN @"LiveFullScreen"
+//视频全屏
+#define LIVE_NO_FULL_SCREEN @"LiveNoFullScreen"
+
 #endif /* Header_h */

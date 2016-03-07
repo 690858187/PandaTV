@@ -54,6 +54,7 @@
 		E368A4A81C18434A005FFA80 /* SearchHttps.m in Sources */ = {isa = PBXBuildFile; fileRef = E368A4A71C18434A005FFA80 /* SearchHttps.m */; };
 		E368A4AB1C18435A005FFA80 /* SearchParams.m in Sources */ = {isa = PBXBuildFile; fileRef = E368A4AA1C18435A005FFA80 /* SearchParams.m */; };
 		E368A4AE1C18437C005FFA80 /* SearchData.m in Sources */ = {isa = PBXBuildFile; fileRef = E368A4AD1C18437C005FFA80 /* SearchData.m */; };
+		E387B8F41C89766E00ACC3D4 /* AVPlayControlFullView.m in Sources */ = {isa = PBXBuildFile; fileRef = E387B8F31C89766E00ACC3D4 /* AVPlayControlFullView.m */; };
 		E392FF781C1F27B10095180B /* HostDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E392FF711C1F27B10095180B /* HostDetailTableViewCell.m */; };
 		E392FF791C1F27B10095180B /* LiveDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E392FF731C1F27B10095180B /* LiveDetailTableViewCell.m */; };
 		E392FF7A1C1F27B10095180B /* ChatInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = E392FF751C1F27B10095180B /* ChatInputView.m */; };
@@ -201,6 +202,8 @@
 		E368A4AA1C18435A005FFA80 /* SearchParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchParams.m; sourceTree = "<group>"; };
 		E368A4AC1C18437C005FFA80 /* SearchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchData.h; sourceTree = "<group>"; };
 		E368A4AD1C18437C005FFA80 /* SearchData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchData.m; sourceTree = "<group>"; };
+		E387B8F21C89766E00ACC3D4 /* AVPlayControlFullView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVPlayControlFullView.h; sourceTree = "<group>"; };
+		E387B8F31C89766E00ACC3D4 /* AVPlayControlFullView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVPlayControlFullView.m; sourceTree = "<group>"; };
 		E392FF701C1F27B10095180B /* HostDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostDetailTableViewCell.h; sourceTree = "<group>"; };
 		E392FF711C1F27B10095180B /* HostDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HostDetailTableViewCell.m; sourceTree = "<group>"; };
 		E392FF721C1F27B10095180B /* LiveDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveDetailTableViewCell.h; sourceTree = "<group>"; };
@@ -603,6 +606,8 @@
 				E31BBA2C1C88282100446FBD /* AVPlayView.m */,
 				E31981B91C4CE7E400174ED4 /* AVPlayControlView.h */,
 				E31981BA1C4CE7E400174ED4 /* AVPlayControlView.m */,
+				E387B8F21C89766E00ACC3D4 /* AVPlayControlFullView.h */,
+				E387B8F31C89766E00ACC3D4 /* AVPlayControlFullView.m */,
 			);
 			name = LiveRoom;
 			sourceTree = "<group>";
@@ -1018,6 +1023,7 @@
 				E368A4AB1C18435A005FFA80 /* SearchParams.m in Sources */,
 				E3BC18691C1E650B00760258 /* LiveRoomHttps.m in Sources */,
 				E31981BB1C4CE7E400174ED4 /* AVPlayControlView.m in Sources */,
+				E387B8F41C89766E00ACC3D4 /* AVPlayControlFullView.m in Sources */,
 				E3DCCD691C2BD74B00C3636C /* ReplyDatas.m in Sources */,
 				E3C554971C258D99008626A9 /* LiveTextDetailTableViewCell.m in Sources */,
 				E392FF781C1F27B10095180B /* HostDetailTableViewCell.m in Sources */,

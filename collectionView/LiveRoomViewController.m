@@ -129,6 +129,7 @@ static NSString *const  kLiveTextDetailTableViewCellReuseIdentifier = @"kLiveTex
             weakSelf.selectView.hidden = YES;
             //此时屏幕的旋转方向是向左
             weakSelf.orientation = UIDeviceOrientationLandscapeLeft;
+            [[NSNotificationCenter defaultCenter] postNotificationName:LIVE_FULL_SCREEN object:nil];
         }
         else {
             [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
@@ -136,7 +137,7 @@ static NSString *const  kLiveTextDetailTableViewCellReuseIdentifier = @"kLiveTex
             [UIView animateWithDuration:0.5 animations:^{
                 weakSelf.avPlayView.transform = CGAffineTransformMakeRotation(0);
             }];
-            
+             [[NSNotificationCenter defaultCenter] postNotificationName:LIVE_NO_FULL_SCREEN object:nil];
             weakSelf.avPlayView.frame = CGRectMake(0, 0, weakSelf.view.frame.size.width, weakSelf.view.frame.size.width*9/16);
             weakSelf.mainScrollView.hidden = NO;
             weakSelf.selectView.hidden = NO;
