@@ -260,21 +260,23 @@ static NSString *const  kLiveTextDetailTableViewCellReuseIdentifier = @"kLiveTex
     NSLog(@"UIDeviceOrientationLandscapeRight:%ld",(long)UIDeviceOrientationLandscapeRight);
     NSLog(@"UIDeviceOrientationFaceUp:%ld",(long)UIDeviceOrientationFaceUp);
     NSLog(@"UIDeviceOrientationFaceDown:%ld",(long)UIDeviceOrientationFaceDown);
-    if ([UIDevice currentDevice].orientation== UIDeviceOrientationLandscapeRight&&self.orientation==UIDeviceOrientationLandscapeLeft) {
+    if ([UIDevice currentDevice].orientation== UIDeviceOrientationLandscapeRight&&self.orientation==UIDeviceOrientationLandscapeLeft) {     //Normal
         
         [UIView animateWithDuration:0.5 animations:^{
             self.avPlayView.transform = CGAffineTransformMakeRotation(-M_PI_2);
         }];
         self.avPlayView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
         self.orientation = UIDeviceOrientationLandscapeRight;
+        [[NSNotificationCenter defaultCenter] postNotificationName:LIVE_FULL_SCREEN_NORMAL object:nil];
     }
-    else if ([UIDevice currentDevice].orientation== UIDeviceOrientationLandscapeLeft&&self.orientation==UIDeviceOrientationLandscapeRight)
+    else if ([UIDevice currentDevice].orientation== UIDeviceOrientationLandscapeLeft&&self.orientation==UIDeviceOrientationLandscapeRight)      //roating
     {
         [UIView animateWithDuration:0.5 animations:^{
             self.avPlayView.transform = CGAffineTransformMakeRotation(M_PI_2);
         }];
         self.avPlayView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
         self.orientation = UIDeviceOrientationLandscapeLeft;
+          [[NSNotificationCenter defaultCenter] postNotificationName:LIVE_FULL_SCREEN_ROTATING object:nil];
     }
 }
 

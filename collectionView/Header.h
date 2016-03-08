@@ -31,7 +31,11 @@
 
 //视频全屏
 #define LIVE_FULL_SCREEN @"LiveFullScreen"
-//视频全屏
+//视频正常全屏
+#define LIVE_FULL_SCREEN_NORMAL @"LiveFullScreenNormal"
+//视频正常全屏旋转
+#define LIVE_FULL_SCREEN_ROTATING @"LiveFullScreenRotating"
+//视频非全屏
 #define LIVE_NO_FULL_SCREEN @"LiveNoFullScreen"
 
 #endif /* Header_h */

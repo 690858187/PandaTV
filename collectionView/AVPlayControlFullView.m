@@ -34,11 +34,11 @@
 - (void)setupView {
     
     self.frame = CGRectMake(0, 0, screen_height, screen_width);
-    
+    self.backgroundColor = [UIColor blueColor];
     for (int i=0; i<3; i++) {
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setImage:[UIImage imageNamed:@"about"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"btn_return_normal"] forState:UIControlStateNormal];
         [self addSubview:btn];
         
         switch (i) {
@@ -64,6 +64,14 @@
 }
 
 - (void)layoutUI {
+     CGFloat spaching = 15.0f;
+    
+    [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(@35);
+        make.top.equalTo(self).offset(spaching);
+        make.left.equalTo(self).offset(spaching);
+    }];
+
     
 }
 

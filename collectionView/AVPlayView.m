@@ -7,7 +7,7 @@
 //
 #import "AVPlayView.h"
 #import "AVPlayControlView.h"
-
+#import "AVPlayControlFullView.h"
 @interface AVPlayView ()<AVPlayerViewControllerDelegate>
 {   //当前视频所处状态，默认为非全屏
     BOOL isLarge;
@@ -18,6 +18,7 @@
 @property (nonatomic, strong) AVPlayerViewController *playViewVC;
 
 @property (nonatomic, strong) AVPlayControlView *playControlView;
+@property (nonatomic, strong) AVPlayControlFullView *playControlFullView;
 /** 视频所处视图的固定宽度*/
 @property (nonatomic, assign) CGFloat width;
 /** 视频所处视图的固定高度*/
@@ -47,6 +48,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeScreenFull) name:LIVE_FULL_SCREEN object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeScreenNoFull) name:LIVE_NO_FULL_SCREEN object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeScreenFullNormal) name:LIVE_FULL_SCREEN_NORMAL object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeScreenNoFullRoating) name:LIVE_FULL_SCREEN_ROTATING object:nil];
 };
 
 
@@ -62,17 +65,33 @@
         }
     };
     [self addSubview:self.playControlView];
+    
+    self.playControlFullView = [AVPlayControlFullView new];
+    self.playControlFullView.hidden = YES;
+    [self addSubview:self.playControlFullView];
+    self.playControlFullView.transform = CGAffineTransformMakeRotation(M_PI_2);
 }
 
 - (void)layoutUI {
     [self.playControlView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
+    
+    [self.playControlFullView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@(screen_width));
+        make.width.equalTo(@(screen_height));
+        make.center.equalTo(self);
+    }];
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.playViewVC.view.frame = self.bounds;
+    [self.playControlFullView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@(screen_width));
+        make.width.equalTo(@(screen_height));
+        make.center.equalTo(self);
+    }];
 }
 
 #pragma mark-----Private Method
@@ -90,12 +109,28 @@
 #pragma mark-----NotificationCenter
 
 - (void)changeScreenFull {
-    
-     self.playControlView.hidden = YES;
+    self.playControlView.hidden = YES;
+    self.playControlFullView.hidden = NO;
 }
 
 - (void)changeScreenNoFull {
     self.playControlView.hidden = NO;
+    self.playControlFullView.hidden = YES;
+}
+
+- (void)changeScreenFullNormal {
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.playControlFullView.transform = CGAffineTransformMakeRotation(-M_PI_2);
+    }];
+}
+
+- (void)changeScreenNoFullRoating {
+    [UIView animateWithDuration:0.5 animations:^{
+        self.playControlFullView.transform = CGAffineTransformMakeRotation(-M_PI_2);
+    }];
+
+    
 }
 
 #pragma mark-----getting&&setting
